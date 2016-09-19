@@ -1,11 +1,3 @@
-h1, h3 {
-	text-align: center;
-}
-
-#add-train {
-	//padding: 10px 10px;
-}
-
-.jumbotron {
-	background-color: brown;
+body {
+  padding: 0px 128px;
 }
