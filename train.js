@@ -29,14 +29,20 @@ db.ref().on("child_added", function(childSnapshot) {
 	var dbDestination = (childSnapshot.val().destination);
 	var dbFirst = (childSnapshot.val().first);
 	var dbFrequency = (childSnapshot.val().frequency);
-
+	var firstTimeConverted = moment(dbFirst,"hh:mm").subtract(1, "years");
+	var currentTime = moment();
+	var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+	var tRemainder = diffTime % dbFrequency;
+	var tMinutesTillTrain = dbFrequency - tRemainder;
+	var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+	nextTrain = moment(nextTrain).format("hh:mm");
 
 	var newRow = $('<tr>');
 	var td1 = $('<td>').html(dbName);
 	var td2 = $('<td>').html(dbDestination)
 	var td3 = $('<td>').html(dbFrequency);
-	var td4 = $('<td>').html(' ');
-	var td5 = $('<td>').html(' ');
+	var td4 = $('<td>').html(nextTrain);
+	var td5 = $('<td>').html(tMinutesTillTrain);
 
 	newRow.append(td1, td2, td3, td4, td5);
 	$('#my-table').append(newRow);
